@@ -1,7 +1,6 @@
 {
-      "hostOne": {
-          "url":"mongodb://localhost:27017/mydb",
-          "name":"mydb"
-        }
+  "hostOne": {
+    "url": "mongodb://admin-kapan-lulus:P4ssw0rd@ds121636.mlab.com:21636/kapan-lulus",
+    "name": "kapan-lulus"
+  }
 }
-  

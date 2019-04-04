@@ -1,6 +1,5 @@
-require('babel-register')({
-  presets: [ [ 'env', { useBuiltIns: true } ] ]
-})
-console.log("Hello");
+require("babel-register")({
+  presets: [["env", { useBuiltIns: true }]]
+});
 
-module.exports = require('./entrypoint')
+module.exports = require("./entrypoint");
