@@ -54,6 +54,8 @@ export default {
             const token = jwt.sign(user, "mysecretkeytoken", {
               expiresIn: "12h"
             });
+            user.role_data =
+              user.role_data[0] !== undefined ? user.role_data[0] : {};
             sender(res, 200, Object.assign({}, user, { token: token }));
           } else {
             sender(res, 404, `Password didn't match`);

@@ -17,7 +17,17 @@ export const readData = db => {
 export const readByUsername = (db, username) => {
   return new Promise((resolve, reject) => {
     db.collection("master-user")
-      .find({ username: username })
+      .aggregate([
+        {
+          $lookup: {
+            from: "master-role",
+            localField: "role",
+            foreignField: "_id",
+            as: "role_data"
+          }
+        },
+        { $match: { username: username } }
+      ])
       .toArray((isErr, data) => {
         if (isErr) {
           const err = {
