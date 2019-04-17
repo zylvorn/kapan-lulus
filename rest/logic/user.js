@@ -1,7 +1,19 @@
-import sender from "./response-sender";
-import datalayer from "../datalayers/user/user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { createTransport } from "nodemailer";
+
+import sender from "./response-sender";
+import datalayer from "../datalayers/user/user";
+
+let senderMail = "kapanlulus2019@gmail.com";
+const transporter = createTransport({
+  service: "gmail",
+  auth: {
+    user: senderMail,
+    pass: "ayamgoreng"
+  }
+});
+
 export default {
   getData: (req, res) => {
     console.log(`GET: ${req.protocol}://${req.get("host")}${req.originalUrl}`);
@@ -63,5 +75,27 @@ export default {
         }
       });
     }
+  },
+  sendEmail: (req, res) => {
+    console.log(`POST: ${req.protocol}://${req.get("host")}${req.originalUrl}`);
+    let verificationCode = Math.random()
+      .toString(36)
+      .slice(-8);
+    let mailOption = {
+      from: senderMail,
+      to: req.body.email,
+      subject: "No Reply",
+      html: `<h1>Kode Verifikasi</h1><h3>Berikut adalah kode verifikasi anda: <strong>${verificationCode}</strong></h3>`
+    };
+    transporter.sendMail(mailOption, (error, info) => {
+      if (error) {
+        sender(res, 404, err);
+      } else {
+        sender(res, 200, {
+          info,
+          verificationCode: verificationCode
+        });
+      }
+    });
   }
 };
