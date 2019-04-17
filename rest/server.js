@@ -20,7 +20,8 @@ export const serviceAPI = () => {
       server.use(urlencoded({ extended: false }));
       routes(server);
       // listen port
-      server.listen(8080, () => console.log(`Server REST run on port 8080`));
+      const port = process.env.PORT || 8080;
+      server.listen(port, () => console.log(`Server REST run on port ${port}`));
     }
   });
 };

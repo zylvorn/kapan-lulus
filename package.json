@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "clean": "rm -rf node_modules/ && rm -rf package-lock.json",
+    "clean-install": "rm -rf node_modules/ && rm -rf package-lock.json && npm install",
+    "clean-start": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "lint": "eslint --fix --ignore-path .gitignore ../backend/.",
     "eslint-init": "eslint --init"
   },
@@ -23,9 +26,6 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-strongloop": "^2.1.0",
     "express": "^4.16.4",
-    "express-graphql": "^0.7.1",
-    "graphql-tag": "^2.10.1",
-    "graphql-yoga": "^1.17.4",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
