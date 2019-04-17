@@ -1,4 +1,5 @@
 export default {
+  main: "/",
   test: "/api/test",
   login_user: "/api/user/login",
   get_user: "/api/user/get",
