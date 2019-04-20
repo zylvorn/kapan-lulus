@@ -15,6 +15,6 @@ export default server => {
   server.put(`${routes.test}/:id`, test.editData);
   server.post(routes.email_sender, user.sendEmail);
   server.get(routes.get_user, checkToken, user.getData);
-  server.post(routes.create_user, checkToken, user.createData);
+  server.post(routes.create_user, user.createData);
   server.post(routes.login_user, user.login);
 };
