@@ -1,5 +1,12 @@
 import { DatabaseConnection } from "../../config/db.connect";
-import { readData, readByUsername, createData, updateData } from "./queries";
+import {
+  readData,
+  findCollection,
+  createData,
+  updateData,
+  uploadData,
+  uploadManyData
+} from "./queries";
 export default {
   getData: () => {
     return new Promise((resolve, reject) => {
@@ -20,11 +27,11 @@ export default {
       });
     });
   },
-  getByUsername: username => {
+  findCollection: (pattern, field, isLogin) => {
     return new Promise((resolve, reject) => {
       DatabaseConnection.connect((isErr, db) => {
         if (!isErr) {
-          readByUsername(db, username)
+          findCollection(db, pattern, field, isLogin)
             .then(data => {
               resolve(data);
             })
@@ -63,6 +70,45 @@ export default {
       DatabaseConnection.connect((isErr, db) => {
         if (!isErr) {
           updateData(db, id, dataInput)
+            .then(data => {
+              resolve(data);
+            })
+            .catch(err => reject(err));
+        } else {
+          let err = {
+            message: `error, can't connect to database`,
+            err: isErr
+          };
+          reject(err);
+        }
+      });
+    });
+  },
+  uploadFile: dataInput => {
+    return new Promise((resolve, reject) => {
+      DatabaseConnection.connect((isErr, db) => {
+        if (!isErr) {
+          uploadData(db, dataInput)
+            .then(data => {
+              resolve(data);
+            })
+            .catch(err => reject(err));
+        } else {
+          let err = {
+            message: `error, can't connect to database`,
+            err: isErr
+          };
+          reject(err);
+        }
+      });
+    });
+  },
+
+  uploadManyFile: dataInput => {
+    return new Promise((resolve, reject) => {
+      DatabaseConnection.connect((isErr, db) => {
+        if (!isErr) {
+          uploadManyData(db, dataInput)
             .then(data => {
               resolve(data);
             })
